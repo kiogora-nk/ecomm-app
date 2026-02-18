@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apex Tech Investment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Apex Tech - Next-gen advertising investment solutions">
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+
+    <div id="app-container">
+        
+        <!-- ============================================ -->
+        <!-- WELCOME/LOGIN SCREEN -->
+        <!-- ============================================ -->
+        <div id="view-welcome" class="view-section active">
+            <div class="welcome-container">
+                <div class="welcome-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Apex Tech</h1>
+                    <p>Next-gen advertising solutions</p>
+                </div>
+                
+                <div class="welcome-buttons">
+                    <button class="btn-login" onclick="showLoginForm()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn-register" onclick="showRegisterForm()">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </div>
+                
+                <p class="guest-text" onclick="continueAsGuest()">
+                    <i class="fas fa-user"></i> Continue as Guest
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- LOGIN FORM -->
+        <!-- ============================================ -->
+        <div id="view-login" class="view-section">
+            <div class="form-container">
+                <button class="back-btn-form" onclick="showWelcome()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                
+                <div class="form-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Welcome Back</h2>
+                </div>
+                
+                <div class="form-content">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email Address">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password">
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember-me">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" onclick="showNotification('Password reset coming soon')">Forgot Password?</a>
+                    </div>
+                    
+                    <button class="btn-submit" onclick="loginUser()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    
+                    <p class="form-footer">
+                        Don't have an account? 
+                        <a href="#" onclick="showRegisterForm()">Sign up</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- REGISTRATION FORM -->
+        <!-- ============================================ -->
+        <div id="view-register" class="view-section">
+            <div class="form-container">
+                <button class="back-btn-form" onclick="showWelcome()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                
+                <div class="form-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Create Account</h2>
+                </div>
+                
+                <div class="form-content">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="reg-name" placeholder="Full Name">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="reg-email" placeholder="Email Address">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="reg-phone" placeholder="Phone Number (e.g., 254712345678)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="reg-password" placeholder="Password (min. 6 characters)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm Password">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-users"></i>
+                        <input type="text" id="reg-referral" placeholder="Referral Code (Optional)">
+                    </div>
+                    
+                    <div class="terms-checkbox">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="accept-terms">
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" onclick="showNotification('Terms of Service')">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    
+                    <button class="btn-submit" onclick="registerUser()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                    
+                    <p class="form-footer">
+                        Already have an account? 
+                        <a href="#" onclick="showLoginForm()">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- HOME VIEW (Main Dashboard) -->
+        <!-- ============================================ -->
+        <div id="view-home" class="view-section">
+            <header class="main-header compact-header">
+                <div class="header-top">
+                    <div class="company-name">Apex Tech</div>
+                    <div class="header-icons">
+                        <i class="fas fa-bell" onclick="showNotification('No new notifications')"></i>
+                        <i class="fas fa-cog" onclick="switchToView('profile')"></i>
+                    </div>
+                </div>
+                <div class="user-greeting">
+                    <h2>Welcome back, <span class="user-name" id="display-name">Investor</span>!</h2>
+                    <p class="user-level" id="display-level">Level 1 Investor • ID: <span id="display-id">APX000</span></p>
+                </div>
+            </header>
+
+            <!-- Daily Reward Banner -->
+            <div class="daily-reward-banner" id="daily-reward-banner" onclick="claimDailyReward()">
+                <div class="reward-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="reward-info">
+                    <h4 id="reward-title">Daily Reward Ready!</h4>
+                    <p id="reward-desc">Claim your bonus</p>
+                </div>
+                <div class="reward-claim">
+                    <span class="claim-badge" id="claim-badge">Claim Now</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+
+            <!-- Compact Stats -->
+            <div class="stats-row compact-stats">
+                <div class="stat-card mini-stat">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <small>Revenue</small>
+                        <h4 id="total-revenue">KES 0</h4>
+                    </div>
+                </div>
+                <div class="stat-card mini-stat">
+                    <i class="fas fa-wallet"></i>
+                    <div>
+                        <small>Wallet</small>
+                        <h4 id="wallet-balance">KES 0</h4>
+                    </div>
+                </div>
+                <div class="stat-card mini-stat">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <small>Team</small>
+                        <h4 id="team-count">0</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Strip -->
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="switchToPackages()">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Invest</span>
+                </button>
+                <button class="quick-action-btn" onclick="showWithdrawModal()">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>Withdraw</span>
+                </button>
+                <button class="quick-action-btn" onclick="switchToView('rewards')">
+                    <i class="fas fa-gift"></i>
+                    <span>Rewards</span>
+                </button>
+                <button class="quick-action-btn" onclick="switchToView('team')">
+                    <i class="fas fa-users"></i>
+                    <span>Team</span>
+                </button>
+            </div>
+
+            <!-- Active Investments Preview -->
+            <div class="section-header">
+                <h3>Your Machines</h3>
+                <span class="view-all" onclick="switchToPackages()">View All</span>
+            </div>
+
+            <div class="active-investments" id="active-investments"></div>
+
+            <!-- Referral Banner -->
+            <div class="referral-banner" id="referral-banner">
+                <div class="referral-content">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4>Invite Friends, Earn More!</h4>
+                        <p>Get 500 KES per referral + 10% commission</p>
+                    </div>
+                    <button class="btn-refer" onclick="showReferralModal()">Invite Now</button>
+                </div>
+            </div>
+
+            <!-- Mini Grid -->
+            <div class="mini-grid">
+                <div class="mini-grid-item" onclick="switchToView('levels')">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Levels</span>
+                </div>
+                <div class="mini-grid-item" onclick="switchToView('wealth')">
+                    <i class="fas fa-piggy-bank"></i>
+                    <span>Wealth</span>
+                </div>
+                <div class="mini-grid-item" onclick="switchToView('news')">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>News</span>
+                </div>
+                <div class="mini-grid-item" onclick="switchToView('promo')">
+                    <i class="fas fa-bolt"></i>
+                    <span>Promo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- PACKAGES VIEW -->
+        <!-- ============================================ -->
+        <div id="view-packages" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Investment Machines</h2>
+                <p>Purchase a machine to start earning daily</p>
+            </header>
+            
+            <div class="package-list" id="package-container"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- MPESA PAYMENT MODAL -->
+        <!-- ============================================ -->
+        <div id="mpesa-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>M-Pesa Payment</h3>
+                    <button class="close-modal" onclick="closeMpesaModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="payment-details" id="payment-details"></div>
+                    
+                    <div class="mpesa-form">
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="mpesa-phone" placeholder="M-Pesa Number (e.g., 254712345678)" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="mpesa-pin" placeholder="M-Pesa PIN" required>
+                        </div>
+                        
+                        <button class="btn-pay" onclick="processMpesaPayment()">
+                            <i class="fas fa-lock"></i> Pay via M-Pesa
+                        </button>
+                        
+                        <div class="mpesa-instructions">
+                            <p><i class="fas fa-info-circle"></i> You'll receive an STK push prompt on your phone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- WITHDRAWAL MODAL -->
+        <!-- ============================================ -->
+        <div id="withdraw-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Withdraw Funds</h3>
+                    <button class="close-modal" onclick="closeWithdrawModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="wallet-info">
+                        <p>Available Balance: <strong id="withdraw-balance">KES 0</strong></p>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-money-bill"></i>
+                        <input type="number" id="withdraw-amount" placeholder="Amount (min. 100)" min="100" step="100" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="withdraw-phone" placeholder="M-Pesa Number (e.g., 254712345678)" required>
+                    </div>
+                    
+                    <button class="btn-withdraw" onclick="processWithdrawal()">
+                        <i class="fas fa-check"></i> Withdraw to M-Pesa
+                    </button>
+                    
+                    <p class="note">Minimum withdrawal: KES 100</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- REFERRAL MODAL -->
+        <!-- ============================================ -->
+        <div id="referral-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Refer & Earn</h3>
+                    <button class="close-modal" onclick="closeReferralModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="referral-info">
+                        <i class="fas fa-gift"></i>
+                        <h4>Earn 500 KES per referral!</h4>
+                        <p>Plus 10% commission on their earnings</p>
+                    </div>
+                    
+                    <div class="referral-link-box">
+                        <p>Your Referral Link:</p>
+                        <div class="referral-box">
+                            <span class="referral-link" id="referral-link-text">https://apex.tech/ref/</span>
+                            <button class="copy-btn" onclick="copyReferralLink()"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="referral-stats-modal">
+                        <div>
+                            <small>Total Referrals</small>
+                            <strong id="modal-referral-count">0</strong>
+                        </div>
+                        <div>
+                            <small>Commission Earned</small>
+                            <strong id="modal-referral-earnings">KES 0</strong>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-share" onclick="shareReferral()">
+                        <i class="fas fa-share-alt"></i> Share Link
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- LEVELS VIEW -->
+        <!-- ============================================ -->
+        <div id="view-levels" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Membership Levels</h2>
+                <p>Your current level: <span id="current-level-display">Level 1</span></p>
+            </header>
+            
+            <div class="levels-container" id="levels-container"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- WEALTH FUND VIEW -->
+        <!-- ============================================ -->
+        <div id="view-wealth" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Wealth Fund</h2>
+                <p>Grow your money with Apex</p>
+            </header>
+            
+            <div class="wealth-container">
+                <div class="wealth-card">
+                    <h3>Total Fund Value</h3>
+                    <p class="wealth-amount">KES 1,250,000</p>
+                    <p class="wealth-growth">+12.5% this month</p>
+                </div>
+                
+                <div class="wealth-options">
+                    <div class="wealth-option" onclick="showNotification('Investment feature coming soon!')">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Growth Fund</h4>
+                        <p>15-20% annual returns</p>
+                    </div>
+                    <div class="wealth-option" onclick="showNotification('Investment feature coming soon!')">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Stable Fund</h4>
+                        <p>8-10% guaranteed returns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- REWARDS VIEW -->
+        <!-- ============================================ -->
+        <div id="view-rewards" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Rewards Center</h2>
+                <p>Claim your bonuses</p>
+            </header>
+            
+            <div class="rewards-container" id="rewards-container"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- TEAM VIEW -->
+        <!-- ============================================ -->
+        <div id="view-team" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>My Team</h2>
+                <p>Build your network & earn more</p>
+            </header>
+            
+            <div class="team-stats" id="team-stats"></div>
+            
+            <div class="team-list" id="team-list"></div>
+            
+            <div class="commission-info">
+                <h4>Commission Structure</h4>
+                <div class="commission-tier">
+                    <span>Level 1 (Direct referrals)</span>
+                    <span class="commission-rate">10%</span>
+                </div>
+                <div class="commission-tier">
+                    <span>Level 2 (Indirect)</span>
+                    <span class="commission-rate">5%</span>
+                </div>
+                <div class="commission-tier">
+                    <span>Level 3</span>
+                    <span class="commission-rate">3%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- NEWS VIEW -->
+        <!-- ============================================ -->
+        <div id="view-news" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Company News</h2>
+                <p>Latest updates</p>
+            </header>
+            
+            <div class="news-container">
+                <div class="news-card">
+                    <h4>New Investment Tiers Launched</h4>
+                    <p class="news-date">18 Feb 2026</p>
+                    <p>8 new investment packages with higher returns!</p>
+                </div>
+                
+                <div class="news-card">
+                    <h4>Weekend Bonus Special</h4>
+                    <p class="news-date">17 Feb 2026</p>
+                    <p>Get 10% extra on all deposits this weekend</p>
+                </div>
+                
+                <div class="news-card">
+                    <h4>Maintenance Update</h4>
+                    <p class="news-date">16 Feb 2026</p>
+                    <p>Platform performance improved for faster transactions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- BENEFITS VIEW -->
+        <!-- ============================================ -->
+        <div id="view-benefits" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Member Benefits</h2>
+                <p>Perks you enjoy</p>
+            </header>
+            
+            <div class="benefits-container">
+                <div class="benefit-item">
+                    <i class="fas fa-percent"></i>
+                    <div>
+                        <h4>Daily Returns</h4>
+                        <p>Earn 8-15% daily on your machines</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4>Referral Commissions</h4>
+                        <p>10% from direct referrals, 5% from indirect</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-gem"></i>
+                    <div>
+                        <h4>Level Bonuses</h4>
+                        <p>Unlock bonuses as you level up</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <h4>Weekly Contests</h4>
+                        <p>Win up to 10,000 KES in competitions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- PROMO VIEW -->
+        <!-- ============================================ -->
+        <div id="view-promo" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Special Promotions</h2>
+                <p>Limited time offers</p>
+            </header>
+            
+            <div class="promo-container">
+                <div class="promo-card">
+                    <div class="promo-badge">HOT</div>
+                    <h3>Welcome Bonus</h3>
+                    <p class="promo-value">Get 200 KES free</p>
+                    <p>on first deposit of 1000 KES or more</p>
+                    <button class="btn-promo" onclick="switchToPackages()">Deposit Now</button>
+                </div>
+                
+                <div class="promo-card">
+                    <div class="promo-badge">LIMITED</div>
+                    <h3>Weekend Special</h3>
+                    <p class="promo-value">20% Extra</p>
+                    <p>on all deposits this weekend</p>
+                    <button class="btn-promo" onclick="switchToPackages()">Claim Offer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- TASKS VIEW -->
+        <!-- ============================================ -->
+        <div id="view-tasks" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Daily Tasks</h2>
+                <p>Complete tasks to earn more</p>
+            </header>
+            
+            <div class="tasks-container">
+                <div class="task-card">
+                    <div class="task-info">
+                        <h4>Watch Training Video</h4>
+                        <p>Earn 100 KES</p>
+                    </div>
+                    <button class="btn-task" onclick="showNotification('Task completed! +100 KES')">Complete</button>
+                </div>
+                
+                <div class="task-card">
+                    <div class="task-info">
+                        <h4>Share on Social Media</h4>
+                        <p>Earn 150 KES</p>
+                    </div>
+                    <button class="btn-task" onclick="showNotification('Task completed! +150 KES')">Complete</button>
+                </div>
+                
+                <div class="task-card">
+                    <div class="task-info">
+                        <h4>Invite a Friend</h4>
+                        <p>Earn 500 KES</p>
+                    </div>
+                    <button class="btn-task" onclick="showReferralModal()">Invite</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- PROFILE VIEW -->
+        <!-- ============================================ -->
+        <div id="view-profile" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>My Profile</h2>
+                <p>Manage your account</p>
+            </header>
+            
+            <div class="profile-container">
+                <div class="profile-cover">
+                    <div class="profile-avatar">
+                        <img src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&size=128" alt="Profile" id="profile-avatar">
+                        <button class="edit-avatar" onclick="showNotification('Change photo coming soon')">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h3 id="profile-name">Investor Name</h3>
+                    <p class="profile-username" id="profile-username">@investor</p>
+                    <div class="profile-badges" id="profile-badges"></div>
+                </div>
+
+                <div class="profile-stats-grid" id="profile-stats"></div>
+
+                <div class="profile-info-card">
+                    <h4><i class="fas fa-user"></i> Personal Information</h4>
+                    <div class="info-row">
+                        <span class="info-label">Full Name</span>
+                        <span class="info-value" id="profile-fullname">-</span>
+                        <button class="info-edit" onclick="showNotification('Edit feature coming soon')"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="profile-email">-</span>
+                        <button class="info-edit" onclick="showNotification('Edit feature coming soon')"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value" id="profile-phone">-</span>
+                        <button class="info-edit" onclick="showNotification('Edit feature coming soon')"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Referral Code</span>
+                        <span class="info-value" id="profile-referral">-</span>
+                        <button class="info-edit" onclick="copyReferralCode()"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Member Since</span>
+                        <span class="info-value" id="profile-joined">-</span>
+                    </div>
+                </div>
+
+                <div class="settings-menu">
+                    <div class="settings-item" onclick="showTransactionHistory()">
+                        <i class="fas fa-history"></i>
+                        <span>Transaction History</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" onclick="showNotification('M-Pesa settings coming soon')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>M-Pesa Settings</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" onclick="showNotification('Help center coming soon')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help Center</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item" onclick="showChangePassword()">
+                        <i class="fas fa-key"></i>
+                        <span>Change Password</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- CHANGE PASSWORD MODAL -->
+        <!-- ============================================ -->
+        <div id="password-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Change Password</h3>
+                    <button class="close-modal" onclick="closePasswordModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="current-password" placeholder="Current Password">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="new-password" placeholder="New Password (min. 6 chars)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-new-password" placeholder="Confirm New Password">
+                    </div>
+                    
+                    <button class="btn-submit" onclick="changePassword()">
+                        <i class="fas fa-key"></i> Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- TRANSACTION HISTORY MODAL -->
+        <!-- ============================================ -->
+        <div id="transaction-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Transaction History</h3>
+                    <button class="close-modal" onclick="closeTransactionModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body" id="transaction-list">
+                    <!-- Transactions will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- BOTTOM NAVIGATION -->
+        <!-- ============================================ -->
+        <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+            <div class="nav-item" onclick="switchTab('home', this)">
+                <i class="fas fa-home"></i><span>Home</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('tasks', this)">
+                <i class="fas fa-rocket"></i><span>Tasks</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('packages', this)">
+                <i class="fas fa-gem"></i><span>Machines</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('profile', this)">
+                <i class="fas fa-user"></i><span>Profile</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast">
+        <span id="notification-message"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

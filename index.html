@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Apex Tech Investment</title>
+    <title>Royal Crest Investment</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <meta name="description" content="Apex Tech - Next-gen advertising investment solutions">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="Royal Crest Investment - Premium investment solutions">
+    <meta name="theme-color" content="#8b5cf6">
 </head>
 <body>
 
     <div id="app-container">
         
         <!-- ============================================ -->
-        <!-- WELCOME/LOGIN SCREEN -->
+        <!-- WELCOME/LOGIN SCREEN (Guest option removed) -->
         <!-- ============================================ -->
         <div id="view-welcome" class="view-section active">
             <div class="welcome-container">
                 <div class="welcome-logo">
-                    <i class="fas fa-chart-line"></i>
-                    <h1>Apex Tech</h1>
-                    <p>Next-gen advertising solutions</p>
+                    <i class="fas fa-crown"></i>
+                    <h1>Royal Crest</h1>
+                    <p>Premium Investment Solutions</p>
                 </div>
                 
                 <div class="welcome-buttons">
@@ -32,10 +32,6 @@
                         <i class="fas fa-user-plus"></i> Create Account
                     </button>
                 </div>
-                
-                <p class="guest-text" onclick="continueAsGuest()">
-                    <i class="fas fa-user"></i> Continue as Guest
-                </p>
             </div>
         </div>
 
@@ -49,7 +45,7 @@
                 </button>
                 
                 <div class="form-logo">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-crown"></i>
                     <h2>Welcome Back</h2>
                 </div>
                 
@@ -95,7 +91,7 @@
                 </button>
                 
                 <div class="form-logo">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-crown"></i>
                     <h2>Create Account</h2>
                 </div>
                 
@@ -156,7 +152,7 @@
         <div id="view-home" class="view-section">
             <header class="main-header compact-header">
                 <div class="header-top">
-                    <div class="company-name">Apex Tech</div>
+                    <div class="company-name">Royal Crest</div>
                     <div class="header-icons">
                         <i class="fas fa-bell" onclick="showNotification('No new notifications')"></i>
                         <i class="fas fa-cog" onclick="switchToView('profile')"></i>
@@ -164,18 +160,18 @@
                 </div>
                 <div class="user-greeting">
                     <h2>Welcome back, <span class="user-name" id="display-name">Investor</span>!</h2>
-                    <p class="user-level" id="display-level">Level 1 Investor • ID: <span id="display-id">APX000</span></p>
+                    <p class="user-level" id="display-level">Level 1 Investor • ID: <span id="display-id">RC000</span></p>
                 </div>
             </header>
 
-            <!-- Daily Reward Banner -->
+            <!-- Daily Reward Banner (changed to 20) -->
             <div class="daily-reward-banner" id="daily-reward-banner" onclick="claimDailyReward()">
                 <div class="reward-icon">
                     <i class="fas fa-gift"></i>
                 </div>
                 <div class="reward-info">
                     <h4 id="reward-title">Daily Reward Ready!</h4>
-                    <p id="reward-desc">Claim your bonus</p>
+                    <p id="reward-desc">Claim your 20 KES bonus</p>
                 </div>
                 <div class="reward-claim">
                     <span class="claim-badge" id="claim-badge">Claim Now</span>
@@ -242,7 +238,7 @@
                     <i class="fas fa-users"></i>
                     <div>
                         <h4>Invite Friends, Earn More!</h4>
-                        <p>Get 500 KES per referral + 10% commission</p>
+                        <p>Get 10% commission on every machine they buy</p>
                     </div>
                     <button class="btn-refer" onclick="showReferralModal()">Invite Now</button>
                 </div>
@@ -270,55 +266,81 @@
         </div>
 
         <!-- ============================================ -->
-        <!-- PACKAGES VIEW -->
+        <!-- PACKAGES VIEW (Updated with payment info) -->
         <!-- ============================================ -->
         <div id="view-packages" class="view-section">
             <header class="main-header packages-header">
                 <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
                 <h2>Investment Machines</h2>
-                <p>Purchase a machine to start earning daily</p>
+                <p>Select a machine to purchase</p>
             </header>
             
             <div class="package-list" id="package-container"></div>
         </div>
 
         <!-- ============================================ -->
-        <!-- MPESA PAYMENT MODAL -->
+        <!-- PAYMENT INFORMATION MODAL (New) -->
         <!-- ============================================ -->
-        <div id="mpesa-modal" class="modal">
+        <div id="payment-info-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>M-Pesa Payment</h3>
-                    <button class="close-modal" onclick="closeMpesaModal()"><i class="fas fa-times"></i></button>
+                    <h3>Payment Details</h3>
+                    <button class="close-modal" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="modal-body">
-                    <div class="payment-details" id="payment-details"></div>
-                    
-                    <div class="mpesa-form">
-                        <div class="input-group">
-                            <i class="fas fa-phone"></i>
-                            <input type="tel" id="mpesa-phone" placeholder="M-Pesa Number (e.g., 254712345678)" required>
+                    <div class="payment-instructions">
+                        <i class="fas fa-info-circle"></i>
+                        <h4>Send payment to:</h4>
+                        
+                        <div class="payment-account">
+                            <div class="account-number" id="account-number">12345667</div>
+                            <button class="copy-btn" onclick="copyAccountNumber()">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
                         </div>
                         
-                        <div class="input-group">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="mpesa-pin" placeholder="M-Pesa PIN" required>
+                        <p class="payment-note">After sending money, click the button below to confirm your payment. Our team will verify and activate your machine within 24 hours.</p>
+                        
+                        <div class="payment-details-box" id="payment-details-box">
+                            <!-- Package details will be inserted here -->
                         </div>
                         
-                        <button class="btn-pay" onclick="processMpesaPayment()">
-                            <i class="fas fa-lock"></i> Pay via M-Pesa
+                        <button class="btn-confirm-payment" onclick="confirmPayment()">
+                            <i class="fas fa-check-circle"></i> I Have Paid
                         </button>
                         
-                        <div class="mpesa-instructions">
-                            <p><i class="fas fa-info-circle"></i> You'll receive an STK push prompt on your phone</p>
-                        </div>
+                        <p class="warning-text">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Please ensure you send the exact amount to the number above
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ============================================ -->
-        <!-- WITHDRAWAL MODAL -->
+        <!-- PAYMENT CONFIRMATION MODAL (New) -->
+        <!-- ============================================ -->
+        <div id="payment-confirmation-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #10b981, #059669);">
+                    <h3>Payment Confirmation</h3>
+                    <button class="close-modal" onclick="closeConfirmationModal()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="confirmation-box">
+                        <i class="fas fa-clock" style="font-size: 4rem; color: #f59e0b; margin-bottom: 1rem;"></i>
+                        <h4>Payment Submitted!</h4>
+                        <p>Your payment is being verified. Your machine will be activated within 24 hours after confirmation.</p>
+                        <p class="confirmation-id">Reference: <strong id="payment-ref">RC-2024-001</strong></p>
+                        <button class="btn-ok" onclick="closeConfirmationModal()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- WITHDRAWAL MODAL (Updated min 300) -->
         <!-- ============================================ -->
         <div id="withdraw-modal" class="modal">
             <div class="modal-content">
@@ -333,7 +355,7 @@
                     
                     <div class="input-group">
                         <i class="fas fa-money-bill"></i>
-                        <input type="number" id="withdraw-amount" placeholder="Amount (min. 100)" min="100" step="100" required>
+                        <input type="number" id="withdraw-amount" placeholder="Amount (min. 300)" min="300" step="100" required>
                     </div>
                     
                     <div class="input-group">
@@ -345,7 +367,7 @@
                         <i class="fas fa-check"></i> Withdraw to M-Pesa
                     </button>
                     
-                    <p class="note">Minimum withdrawal: KES 100</p>
+                    <p class="note">Minimum withdrawal: KES 300</p>
                 </div>
             </div>
         </div>
@@ -362,14 +384,14 @@
                 <div class="modal-body">
                     <div class="referral-info">
                         <i class="fas fa-gift"></i>
-                        <h4>Earn 500 KES per referral!</h4>
-                        <p>Plus 10% commission on their earnings</p>
+                        <h4>Earn 10% commission!</h4>
+                        <p>On every machine your referrals buy</p>
                     </div>
                     
                     <div class="referral-link-box">
                         <p>Your Referral Link:</p>
                         <div class="referral-box">
-                            <span class="referral-link" id="referral-link-text">https://apex.tech/ref/</span>
+                            <span class="referral-link" id="referral-link-text">https://royalcrest.invest/ref/</span>
                             <button class="copy-btn" onclick="copyReferralLink()"><i class="fas fa-copy"></i></button>
                         </div>
                     </div>
@@ -393,6 +415,21 @@
         </div>
 
         <!-- ============================================ -->
+        <!-- TASKS VIEW (Updated - machine based) -->
+        <!-- ============================================ -->
+        <div id="view-tasks" class="view-section">
+            <header class="main-header packages-header">
+                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
+                <h2>Machine Tasks</h2>
+                <p>Complete tasks to earn from your machines</p>
+            </header>
+            
+            <div class="tasks-container" id="tasks-container">
+                <!-- Tasks will be populated based on machines owned -->
+            </div>
+        </div>
+
+        <!-- ============================================ -->
         <!-- LEVELS VIEW -->
         <!-- ============================================ -->
         <div id="view-levels" class="view-section">
@@ -412,7 +449,7 @@
             <header class="main-header packages-header">
                 <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
                 <h2>Wealth Fund</h2>
-                <p>Grow your money with Apex</p>
+                <p>Grow your money with Royal Crest</p>
             </header>
             
             <div class="wealth-container">
@@ -467,16 +504,8 @@
             <div class="commission-info">
                 <h4>Commission Structure</h4>
                 <div class="commission-tier">
-                    <span>Level 1 (Direct referrals)</span>
+                    <span>Direct referrals (10% of their purchases)</span>
                     <span class="commission-rate">10%</span>
-                </div>
-                <div class="commission-tier">
-                    <span>Level 2 (Indirect)</span>
-                    <span class="commission-rate">5%</span>
-                </div>
-                <div class="commission-tier">
-                    <span>Level 3</span>
-                    <span class="commission-rate">3%</span>
                 </div>
             </div>
         </div>
@@ -493,21 +522,15 @@
             
             <div class="news-container">
                 <div class="news-card">
-                    <h4>New Investment Tiers Launched</h4>
+                    <h4>Welcome to Royal Crest Investment</h4>
+                    <p class="news-date">19 Feb 2026</p>
+                    <p>We're excited to launch our premium investment platform!</p>
+                </div>
+                
+                <div class="news-card">
+                    <h4>New Payment Method</h4>
                     <p class="news-date">18 Feb 2026</p>
-                    <p>8 new investment packages with higher returns!</p>
-                </div>
-                
-                <div class="news-card">
-                    <h4>Weekend Bonus Special</h4>
-                    <p class="news-date">17 Feb 2026</p>
-                    <p>Get 10% extra on all deposits this weekend</p>
-                </div>
-                
-                <div class="news-card">
-                    <h4>Maintenance Update</h4>
-                    <p class="news-date">16 Feb 2026</p>
-                    <p>Platform performance improved for faster transactions</p>
+                    <p>Send payments to 12345667 and get your machines activated within 24 hours</p>
                 </div>
             </div>
         </div>
@@ -535,7 +558,7 @@
                     <i class="fas fa-users"></i>
                     <div>
                         <h4>Referral Commissions</h4>
-                        <p>10% from direct referrals, 5% from indirect</p>
+                        <p>10% from every machine your referrals buy</p>
                     </div>
                 </div>
                 
@@ -544,14 +567,6 @@
                     <div>
                         <h4>Level Bonuses</h4>
                         <p>Unlock bonuses as you level up</p>
-                    </div>
-                </div>
-                
-                <div class="benefit-item">
-                    <i class="fas fa-trophy"></i>
-                    <div>
-                        <h4>Weekly Contests</h4>
-                        <p>Win up to 10,000 KES in competitions</p>
                     </div>
                 </div>
             </div>
@@ -569,56 +584,11 @@
             
             <div class="promo-container">
                 <div class="promo-card">
-                    <div class="promo-badge">HOT</div>
+                    <div class="promo-badge">NEW</div>
                     <h3>Welcome Bonus</h3>
                     <p class="promo-value">Get 200 KES free</p>
                     <p>on first deposit of 1000 KES or more</p>
-                    <button class="btn-promo" onclick="switchToPackages()">Deposit Now</button>
-                </div>
-                
-                <div class="promo-card">
-                    <div class="promo-badge">LIMITED</div>
-                    <h3>Weekend Special</h3>
-                    <p class="promo-value">20% Extra</p>
-                    <p>on all deposits this weekend</p>
-                    <button class="btn-promo" onclick="switchToPackages()">Claim Offer</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================ -->
-        <!-- TASKS VIEW -->
-        <!-- ============================================ -->
-        <div id="view-tasks" class="view-section">
-            <header class="main-header packages-header">
-                <button class="back-btn" onclick="switchToHome()"><i class="fas fa-arrow-left"></i></button>
-                <h2>Daily Tasks</h2>
-                <p>Complete tasks to earn more</p>
-            </header>
-            
-            <div class="tasks-container">
-                <div class="task-card">
-                    <div class="task-info">
-                        <h4>Watch Training Video</h4>
-                        <p>Earn 100 KES</p>
-                    </div>
-                    <button class="btn-task" onclick="showNotification('Task completed! +100 KES')">Complete</button>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-info">
-                        <h4>Share on Social Media</h4>
-                        <p>Earn 150 KES</p>
-                    </div>
-                    <button class="btn-task" onclick="showNotification('Task completed! +150 KES')">Complete</button>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-info">
-                        <h4>Invite a Friend</h4>
-                        <p>Earn 500 KES</p>
-                    </div>
-                    <button class="btn-task" onclick="showReferralModal()">Invite</button>
+                    <button class="btn-promo" onclick="switchToPackages()">Invest Now</button>
                 </div>
             </div>
         </div>
@@ -636,7 +606,7 @@
             <div class="profile-container">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&size=128" alt="Profile" id="profile-avatar">
+                        <img src="https://ui-avatars.com/api/?name=User&background=8b5cf6&color=fff&size=128" alt="Profile" id="profile-avatar">
                         <button class="edit-avatar" onclick="showNotification('Change photo coming soon')">
                             <i class="fas fa-camera"></i>
                         </button>
@@ -682,9 +652,9 @@
                         <span>Transaction History</span>
                         <i class="fas fa-chevron-right"></i>
                     </div>
-                    <div class="settings-item" onclick="showNotification('M-Pesa settings coming soon')">
+                    <div class="settings-item" onclick="showNotification('Payment settings coming soon')">
                         <i class="fas fa-mobile-alt"></i>
-                        <span>M-Pesa Settings</span>
+                        <span>Payment Settings</span>
                         <i class="fas fa-chevron-right"></i>
                     </div>
                     <div class="settings-item" onclick="showNotification('Help center coming soon')">
@@ -747,9 +717,7 @@
                     <h3>Transaction History</h3>
                     <button class="close-modal" onclick="closeTransactionModal()"><i class="fas fa-times"></i></button>
                 </div>
-                <div class="modal-body" id="transaction-list">
-                    <!-- Transactions will be populated here -->
-                </div>
+                <div class="modal-body" id="transaction-list"></div>
             </div>
         </div>
 
@@ -761,7 +729,7 @@
                 <i class="fas fa-home"></i><span>Home</span>
             </div>
             <div class="nav-item" onclick="switchTab('tasks', this)">
-                <i class="fas fa-rocket"></i><span>Tasks</span>
+                <i class="fas fa-tasks"></i><span>Tasks</span>
             </div>
             <div class="nav-item" onclick="switchTab('packages', this)">
                 <i class="fas fa-gem"></i><span>Machines</span>

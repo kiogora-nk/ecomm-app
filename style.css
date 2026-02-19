@@ -1,11 +1,11 @@
 /* ============================================
-   APEX TECH INVESTMENT APP - COMPLETE STYLESHEET
+   ROYAL CREST INVESTMENT APP - COMPLETE STYLESHEET
    ============================================ */
 
 /* --- CSS VARIABLES --- */
 :root {
-    --primary-blue: #2563eb;
-    --header-blue: #3b82f6;
+    --primary-purple: #8b5cf6;
+    --header-purple: #a78bfa;
     --bg-gray: #f0f2f5;
     --text-dark: #1f2937;
     --text-light: #6b7280;
@@ -25,7 +25,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -73,7 +73,7 @@ body {
    ============================================ */
 .welcome-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -162,7 +162,7 @@ body {
 
 .btn-login {
     background: white;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
 }
 
@@ -190,30 +190,6 @@ body {
     transform: translateY(0);
 }
 
-.guest-text {
-    color: rgba(255,255,255,0.9);
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 0.5rem;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-
-.guest-text:hover {
-    background: rgba(255,255,255,0.1);
-    transform: scale(1.05);
-}
-
-.guest-text:active {
-    transform: scale(0.95);
-}
-
 /* ============================================
    FORM CONTAINERS (Login & Register)
    ============================================ */
@@ -227,7 +203,7 @@ body {
 .back-btn-form {
     background: none;
     border: none;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -241,7 +217,7 @@ body {
 
 .back-btn-form:hover {
     transform: translateX(-5px);
-    color: #1e40af;
+    color: #6d28d9;
 }
 
 .back-btn-form i {
@@ -255,7 +231,7 @@ body {
 
 .form-logo i {
     font-size: 3.5rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     margin-bottom: 1rem;
     animation: pulse 2s infinite;
 }
@@ -290,13 +266,13 @@ body {
 }
 
 .input-group:focus-within {
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
     transform: translateY(-2px);
 }
 
 .input-group i {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     width: 30px;
     font-size: 1.2rem;
 }
@@ -346,12 +322,12 @@ body {
 }
 
 .checkbox-container:hover input ~ .checkmark {
-    border-color: var(--primary-blue);
+    border-color: var(--primary-purple);
 }
 
 .checkbox-container input:checked ~ .checkmark {
-    background-color: var(--primary-blue);
-    border-color: var(--primary-blue);
+    background-color: var(--primary-purple);
+    border-color: var(--primary-purple);
 }
 
 .checkmark:after {
@@ -382,7 +358,7 @@ body {
 }
 
 .form-options a {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
@@ -390,7 +366,7 @@ body {
 }
 
 .form-options a:hover {
-    color: #1e40af;
+    color: #6d28d9;
     text-decoration: underline;
 }
 
@@ -399,7 +375,7 @@ body {
 }
 
 .terms-checkbox a {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     text-decoration: none;
     font-weight: 500;
 }
@@ -411,7 +387,7 @@ body {
 /* --- Submit Button --- */
 .btn-submit {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border: none;
     padding: 1rem;
@@ -464,7 +440,7 @@ body {
 }
 
 .form-footer a {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     text-decoration: none;
     font-weight: 600;
     margin-left: 5px;
@@ -472,7 +448,7 @@ body {
 }
 
 .form-footer a:hover {
-    color: #1e40af;
+    color: #6d28d9;
     text-decoration: underline;
 }
 
@@ -480,7 +456,7 @@ body {
    MAIN HEADER
    ============================================ */
 .main-header {
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     padding: 2rem 1.5rem 5rem;
     border-bottom-left-radius: 40px;
@@ -723,8 +699,8 @@ body {
 
 .mini-stat i {
     font-size: 1.8rem;
-    color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
     padding: 0.8rem;
     border-radius: 15px;
 }
@@ -777,8 +753,8 @@ body {
 
 .quick-action-btn i {
     font-size: 1.4rem;
-    color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
     padding: 0.7rem;
     border-radius: 50%;
 }
@@ -809,17 +785,17 @@ body {
 
 .view-all {
     font-size: 0.85rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     cursor: pointer;
     font-weight: 600;
     padding: 0.3rem 0.8rem;
     border-radius: 50px;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(139, 92, 246, 0.1);
     transition: all 0.3s ease;
 }
 
 .view-all:hover {
-    background: var(--primary-blue);
+    background: var(--primary-purple);
     color: white;
 }
 
@@ -881,7 +857,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-blue), #60a5fa);
+    background: linear-gradient(90deg, var(--primary-purple), #a78bfa);
     border-radius: 4px;
     transition: width 0.3s ease;
 }
@@ -906,12 +882,12 @@ body {
    REFERRAL BANNER
    ============================================ */
 .referral-banner {
-    background: linear-gradient(135deg, var(--warning-orange), #fbbf24);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     margin: 1rem 1.5rem;
     padding: 1rem;
     border-radius: 20px;
     color: white;
-    box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.3);
 }
 
 .referral-content {
@@ -938,7 +914,7 @@ body {
 
 .btn-refer {
     background: white;
-    color: var(--text-dark);
+    color: var(--primary-purple);
     border: none;
     padding: 0.5rem 1.2rem;
     border-radius: 50px;
@@ -994,8 +970,8 @@ body {
 
 .mini-grid-item i {
     font-size: 1.2rem;
-    color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
     padding: 0.5rem;
     border-radius: 50%;
 }
@@ -1038,7 +1014,7 @@ body {
 }
 
 .brand-badge {
-    background: linear-gradient(135deg, var(--primary-blue), #60a5fa);
+    background: linear-gradient(135deg, var(--primary-purple), #a78bfa);
     color: white;
     padding: 0.3rem 1rem;
     border-radius: 50px;
@@ -1098,23 +1074,48 @@ body {
 }
 
 .text-blue {
-    color: var(--primary-blue) !important;
+    color: var(--primary-purple) !important;
 }
 
 .package-roi {
     text-align: center;
     margin: 0.8rem 0;
     padding: 0.4rem;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
     border-radius: 50px;
-    color: var(--accent-green);
+    color: var(--primary-purple);
     font-size: 0.9rem;
     font-weight: 700;
 }
 
+/* Payment info in package cards */
+.payment-info {
+    background: #f3f4f6;
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    text-align: center;
+    border: 1px dashed var(--primary-purple);
+}
+
+.payment-info p {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.payment-info i {
+    color: var(--primary-purple);
+    margin-right: 0.5rem;
+}
+
+.payment-info strong {
+    color: var(--primary-purple);
+    font-size: 1.1rem;
+}
+
 .btn-buy {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border: none;
     padding: 1rem;
@@ -1206,7 +1207,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border-radius: 30px 30px 0 0;
 }
@@ -1240,34 +1241,128 @@ body {
     padding: 1.5rem;
 }
 
-/* --- Package Preview --- */
-.package-preview {
+/* --- Payment Modal Styles --- */
+.payment-instructions {
     text-align: center;
+}
+
+.payment-instructions i {
+    font-size: 3rem;
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+}
+
+.payment-account {
+    background: #f3f4f6;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    border-radius: 20px;
-    margin-bottom: 1.5rem;
+    border-radius: 16px;
+    margin: 1.5rem 0;
+    border: 2px dashed var(--primary-purple);
 }
 
-.package-preview h4 {
-    color: var(--text-dark);
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-
-.package-preview .price {
+.account-number {
     font-size: 2rem;
     font-weight: 800;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.payment-note {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    line-height: 1.5;
+}
+
+.payment-details-box {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 1rem 0;
+}
+
+.package-summary h4 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.package-summary .amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-purple);
     margin: 0.5rem 0;
+}
+
+.btn-confirm-payment {
+    width: 100%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.btn-confirm-payment:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+}
+
+.warning-text {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.confirmation-box {
+    text-align: center;
+    padding: 1rem;
+}
+
+.confirmation-id {
+    background: #f3f4f6;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.btn-ok {
+    background: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-ok:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
 }
 
 /* --- Wallet Info --- */
 .wallet-info {
     text-align: center;
     padding: 1.2rem;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border-radius: 16px;
     margin-bottom: 1.5rem;
@@ -1282,23 +1377,6 @@ body {
     font-size: 1.5rem;
     display: block;
     margin-top: 0.3rem;
-}
-
-/* --- M-Pesa Instructions --- */
-.mpesa-instructions {
-    text-align: center;
-    color: var(--text-light);
-    font-size: 0.85rem;
-    padding: 1rem;
-    background: #f8fafc;
-    border-radius: 12px;
-    margin-top: 1rem;
-    border: 1px dashed #e5e7eb;
-}
-
-.mpesa-instructions i {
-    color: var(--primary-blue);
-    margin-right: 0.5rem;
 }
 
 /* --- Payment Buttons --- */
@@ -1377,7 +1455,7 @@ body {
 }
 
 .copy-btn {
-    background: var(--primary-blue);
+    background: var(--primary-purple);
     color: white;
     border: none;
     width: 40px;
@@ -1388,7 +1466,7 @@ body {
 }
 
 .copy-btn:hover {
-    background: #1e40af;
+    background: #6d28d9;
     transform: scale(1.05);
 }
 
@@ -1421,7 +1499,7 @@ body {
 
 .btn-share {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border: none;
     padding: 1rem;
@@ -1437,7 +1515,7 @@ body {
 
 .btn-share:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4);
 }
 
 /* ============================================
@@ -1463,8 +1541,8 @@ body {
 }
 
 .level-card.current {
-    border-left-color: var(--primary-blue);
-    background: linear-gradient(to right, #eff6ff, white);
+    border-left-color: var(--primary-purple);
+    background: linear-gradient(to right, #f5f3ff, white);
 }
 
 .level-card.locked {
@@ -1487,9 +1565,9 @@ body {
 }
 
 .level-requirement {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     font-weight: 700;
-    background: #eff6ff;
+    background: rgba(139, 92, 246, 0.1);
     padding: 0.3rem 0.8rem;
     border-radius: 50px;
     font-size: 0.85rem;
@@ -1566,9 +1644,9 @@ body {
 
 .reward-card i {
     font-size: 3rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     margin-bottom: 1rem;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(139, 92, 246, 0.1);
     padding: 1rem;
     border-radius: 50%;
 }
@@ -1684,7 +1762,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid var(--primary-blue);
+    border: 2px solid var(--primary-purple);
 }
 
 .member-info h4 {
@@ -1758,6 +1836,114 @@ body {
 }
 
 /* ============================================
+   TASKS VIEW (Machine-based)
+   ============================================ */
+.tasks-container {
+    padding: 1.5rem;
+}
+
+.task-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.machine-task {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-machine-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.machine-badge {
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.task-info h4 {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+}
+
+.task-info p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.task-reward {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 0.8rem;
+    border-top: 1px solid #f0f2f5;
+}
+
+.reward-amount {
+    color: var(--accent-green);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.btn-task {
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-task:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+}
+
+.btn-task:active {
+    transform: scale(0.95);
+}
+
+.no-tasks {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: white;
+    border-radius: 20px;
+}
+
+.no-tasks i {
+    font-size: 3rem;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+}
+
+.no-tasks p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================
    PROFILE STYLES
    ============================================ */
 .profile-container {
@@ -1765,7 +1951,7 @@ body {
 }
 
 .profile-cover {
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     padding: 2rem 1.5rem 4rem;
     margin-top: -1rem;
@@ -1817,7 +2003,7 @@ body {
 }
 
 .edit-avatar i {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     font-size: 1rem;
 }
 
@@ -1905,7 +2091,7 @@ body {
 }
 
 .profile-info-card h4 i {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
 }
 
 .info-row {
@@ -1943,7 +2129,7 @@ body {
 }
 
 .info-edit:hover {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     transform: scale(1.1);
 }
 
@@ -1971,7 +2157,7 @@ body {
 
 .settings-item i:first-child {
     width: 25px;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     margin-right: 1rem;
     font-size: 1.1rem;
 }
@@ -2072,7 +2258,7 @@ body {
 }
 
 .btn-buy-small {
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     border: none;
     padding: 0.8rem 1.8rem;
@@ -2085,13 +2271,13 @@ body {
 
 .btn-buy-small:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4);
 }
 
 .more-investments {
     text-align: center;
     padding: 0.8rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
@@ -2102,24 +2288,23 @@ body {
 }
 
 /* ============================================
-   WEALTH FUND, NEWS, BENEFITS, PROMO, TASKS
+   WEALTH FUND, NEWS, BENEFITS, PROMO
    ============================================ */
 .wealth-container,
 .news-container,
 .benefits-container,
-.promo-container,
-.tasks-container {
+.promo-container {
     padding: 1.5rem;
 }
 
 .wealth-card {
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     padding: 2rem;
     border-radius: 24px;
     text-align: center;
     margin-bottom: 1.5rem;
-    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3);
 }
 
 .wealth-amount {
@@ -2161,9 +2346,9 @@ body {
 
 .wealth-option i {
     font-size: 2.2rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     margin-bottom: 0.8rem;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(139, 92, 246, 0.1);
     padding: 1rem;
     border-radius: 50%;
 }
@@ -2187,7 +2372,7 @@ body {
     margin-bottom: 1rem;
     box-shadow: var(--card-shadow);
     transition: all 0.3s ease;
-    border-left: 4px solid var(--primary-blue);
+    border-left: 4px solid var(--primary-purple);
 }
 
 .news-card:hover {
@@ -2203,7 +2388,7 @@ body {
 }
 
 .news-date {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 0.8rem;
@@ -2229,7 +2414,7 @@ body {
 
 .benefit-item i {
     font-size: 2.2rem;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     width: 50px;
     text-align: center;
 }
@@ -2247,7 +2432,7 @@ body {
 
 /* --- Promo Cards --- */
 .promo-card {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, var(--primary-purple), #6d28d9);
     color: white;
     padding: 2rem;
     border-radius: 24px;
@@ -2255,7 +2440,7 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.4);
 }
 
 .promo-badge {
@@ -2281,7 +2466,7 @@ body {
 
 .btn-promo {
     background: white;
-    color: var(--primary-blue);
+    color: var(--primary-purple);
     border: none;
     padding: 0.8rem 2rem;
     border-radius: 50px;
@@ -2298,59 +2483,6 @@ body {
 }
 
 .btn-promo:active {
-    transform: scale(0.95);
-}
-
-/* --- Task Cards --- */
-.task-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 1.2rem;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    box-shadow: var(--card-shadow);
-    transition: all 0.3s ease;
-}
-
-.task-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--hover-shadow);
-}
-
-.task-info h4 {
-    margin-bottom: 0.2rem;
-    color: var(--text-dark);
-    font-size: 1rem;
-    font-weight: 700;
-}
-
-.task-info p {
-    color: var(--accent-green);
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.btn-task {
-    background: linear-gradient(135deg, var(--primary-blue), #1e40af);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-task:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-}
-
-.btn-task:active {
     transform: scale(0.95);
 }
 
@@ -2429,8 +2561,8 @@ body {
 }
 
 .nav-item.active {
-    color: var(--primary-blue);
-    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
 }
 
 .nav-item.active i {
@@ -2438,7 +2570,7 @@ body {
 }
 
 .nav-item:hover {
-    color: var(--primary-blue);
+    color: var(--primary-purple);
 }
 
 /* ============================================
@@ -2531,6 +2663,7 @@ body {
     .btn-buy,
     .btn-refer,
     .btn-reward,
+    .btn-task,
     .back-btn,
     .header-icons,
     .edit-avatar {

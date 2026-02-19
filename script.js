@@ -1,5 +1,5 @@
 // ============================================
-// APEX TECH INVESTMENT APP - COMPLETE WITH LOGIN
+// ROYAL CREST INVESTMENT APP - COMPLETE
 // ============================================
 
 // --- DATA STORAGE ---
@@ -7,25 +7,30 @@ let currentUser = null;
 let users = [];
 let transactions = [];
 let lastClaimDate = null;
+let pendingPayments = [];
+
+// --- COMPANY PAYMENT DETAILS ---
+const COMPANY_PHONE = "12345667";
+const COMPANY_NAME = "Royal Crest Investment";
 
 // --- PACKAGE DATA ---
 const packages = [
-    { id: 1, brand: 'DELL', level: 'Level 1', deposit: 800, daily: 80, days: 16, total: 1280 },
-    { id: 2, brand: 'HP', level: 'Level 2', deposit: 1800, daily: 130, days: 20, total: 2600 },
-    { id: 3, brand: 'Lenovo', level: 'Level 3', deposit: 3900, daily: 200, days: 24, total: 4800 },
-    { id: 4, brand: 'Apple', level: 'Level 4', deposit: 7850, daily: 320, days: 32, total: 10240 },
-    { id: 5, brand: 'ASUS', level: 'Level 5', deposit: 16500, daily: 555, days: 40, total: 22200 },
-    { id: 6, brand: 'Acer', level: 'Level 6', deposit: 23750, daily: 600, days: 60, total: 36000 },
-    { id: 7, brand: 'Microsoft', level: 'Level 7', deposit: 38250, daily: 770, days: 70, total: 53900 },
-    { id: 8, brand: 'Samsung', level: 'Level 8', deposit: 45000, daily: 850, days: 78, total: 66300 }
+    { id: 1, brand: 'Royal Starter', level: 'Level 1', deposit: 800, daily: 80, days: 16, total: 1280 },
+    { id: 2, brand: 'Royal Plus', level: 'Level 2', deposit: 1800, daily: 130, days: 20, total: 2600 },
+    { id: 3, brand: 'Royal Pro', level: 'Level 3', deposit: 3900, daily: 200, days: 24, total: 4800 },
+    { id: 4, brand: 'Royal Elite', level: 'Level 4', deposit: 7850, daily: 320, days: 32, total: 10240 },
+    { id: 5, brand: 'Royal Executive', level: 'Level 5', deposit: 16500, daily: 555, days: 40, total: 22200 },
+    { id: 6, brand: 'Royal VIP', level: 'Level 6', deposit: 23750, daily: 600, days: 60, total: 36000 },
+    { id: 7, brand: 'Royal Platinum', level: 'Level 7', deposit: 38250, daily: 770, days: 70, total: 53900 },
+    { id: 8, brand: 'Royal Diamond', level: 'Level 8', deposit: 45000, daily: 850, days: 78, total: 66300 }
 ];
 
 // --- LEVEL DATA ---
 const levels = [
-    { level: 1, name: 'Bronze', requirement: 0, benefits: ['Basic machines', '5% daily returns', 'Direct referrals: 5%'] },
-    { level: 2, name: 'Silver', requirement: 10000, benefits: ['Premium machines', '8% daily returns', 'Direct referrals: 10%', 'Level 2 commissions: 3%'] },
-    { level: 3, name: 'Gold', requirement: 50000, benefits: ['VIP machines', '12% daily returns', 'Direct referrals: 15%', 'Level 2: 5%', 'Level 3: 2%'] },
-    { level: 4, name: 'Platinum', requirement: 100000, benefits: ['All machines', '15% daily returns', 'Direct referrals: 20%', 'All commissions doubled'] }
+    { level: 1, name: 'Bronze', requirement: 0, benefits: ['Basic machines', '5% daily returns', 'Referral commission: 10%'] },
+    { level: 2, name: 'Silver', requirement: 10000, benefits: ['Premium machines', '8% daily returns', 'Referral commission: 10%', 'Priority support'] },
+    { level: 3, name: 'Gold', requirement: 50000, benefits: ['VIP machines', '12% daily returns', 'Referral commission: 10%', 'Weekly bonuses'] },
+    { level: 4, name: 'Platinum', requirement: 100000, benefits: ['All machines', '15% daily returns', 'Referral commission: 10%', 'Monthly dividends'] }
 ];
 
 // ============================================
@@ -34,7 +39,6 @@ const levels = [
 document.addEventListener('DOMContentLoaded', () => {
     loadUserData();
     
-    // Check if user is already logged in
     if (currentUser) {
         showMainApp();
         updateAllDisplays();
@@ -44,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- DAILY RETURNS TIMER (runs every minute) ---
 function startDailyReturnsTimer() {
     setInterval(() => {
         if (currentUser) {
@@ -65,7 +68,6 @@ function showLoginForm() {
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     document.getElementById('view-login').classList.add('active');
     
-    // Clear form
     document.getElementById('login-email').value = '';
     document.getElementById('login-password').value = '';
     document.getElementById('remember-me').checked = false;
@@ -75,7 +77,6 @@ function showRegisterForm() {
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     document.getElementById('view-register').classList.add('active');
     
-    // Clear form
     document.getElementById('reg-name').value = '';
     document.getElementById('reg-email').value = '';
     document.getElementById('reg-phone').value = '';
@@ -90,38 +91,10 @@ function showMainApp() {
     document.getElementById('view-home').classList.add('active');
     document.getElementById('bottom-nav').style.display = 'flex';
     
-    // Set home as active nav
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.querySelector('.nav-item').classList.add('active');
     
-    // Update all displays
     updateAllDisplays();
-}
-
-function continueAsGuest() {
-    // Create a guest user
-    currentUser = {
-        id: 'GUEST' + Math.floor(Math.random() * 10000),
-        name: 'Guest User',
-        email: 'guest@example.com',
-        phone: '254700000000',
-        referralCode: 'GUEST' + Math.floor(Math.random() * 10000),
-        referredBy: null,
-        level: 1,
-        totalRevenue: 0,
-        walletBalance: 0,
-        joinDate: new Date().toISOString(),
-        investments: [],
-        referrals: [],
-        commissionEarned: 0,
-        dailyStreak: 0,
-        isGuest: true
-    };
-    
-    users.push(currentUser);
-    saveUserData();
-    showMainApp();
-    showNotification('Welcome! You are browsing as a guest.');
 }
 
 // ============================================
@@ -132,13 +105,11 @@ function loginUser() {
     const password = document.getElementById('login-password').value;
     const remember = document.getElementById('remember-me').checked;
     
-    // Validate
     if (!email || !password) {
         showNotification('Please enter email and password');
         return;
     }
     
-    // Find user
     const user = users.find(u => u.email === email && u.password === btoa(password));
     
     if (user) {
@@ -156,7 +127,6 @@ function loginUser() {
 }
 
 function registerUser() {
-    // Get form values
     const name = document.getElementById('reg-name').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const phone = document.getElementById('reg-phone').value.trim();
@@ -165,76 +135,59 @@ function registerUser() {
     const referralCode = document.getElementById('reg-referral').value.trim();
     const acceptTerms = document.getElementById('accept-terms').checked;
     
-    // Validate name
     if (!name) {
         showNotification('Please enter your full name');
-        document.getElementById('reg-name').focus();
         return;
     }
     
-    // Validate email
     if (!email) {
         showNotification('Please enter your email address');
-        document.getElementById('reg-email').focus();
         return;
     }
     
     if (!validateEmail(email)) {
         showNotification('Please enter a valid email address');
-        document.getElementById('reg-email').focus();
         return;
     }
     
-    // Check if email already exists
     if (users.some(u => u.email === email)) {
         showNotification('Email already registered. Please login.');
         return;
     }
     
-    // Validate phone
     if (!phone) {
         showNotification('Please enter your phone number');
-        document.getElementById('reg-phone').focus();
         return;
     }
     
     const cleanPhone = phone.replace(/\D/g, '');
     if (cleanPhone.length < 10 || cleanPhone.length > 12) {
         showNotification('Phone number should be 10-12 digits (e.g., 254712345678)');
-        document.getElementById('reg-phone').focus();
         return;
     }
     
-    // Validate password
     if (!password) {
         showNotification('Please enter a password');
-        document.getElementById('reg-password').focus();
         return;
     }
     
     if (password.length < 6) {
         showNotification('Password must be at least 6 characters');
-        document.getElementById('reg-password').focus();
         return;
     }
     
-    // Validate password confirmation
     if (password !== confirmPassword) {
         showNotification('Passwords do not match');
-        document.getElementById('reg-confirm-password').focus();
         return;
     }
     
-    // Validate terms
     if (!acceptTerms) {
         showNotification('Please accept the Terms & Conditions');
         return;
     }
     
-    // Generate unique user ID
-    const userId = 'APX' + Math.floor(Math.random() * 10000) + Math.floor(Math.random() * 1000);
+    const userId = 'RC' + Math.floor(Math.random() * 10000) + Math.floor(Math.random() * 1000);
     
-    // Create user object
     currentUser = {
         id: userId,
         name: name,
@@ -250,23 +203,18 @@ function registerUser() {
         investments: [],
         referrals: [],
         commissionEarned: 0,
-        dailyStreak: 0
+        dailyStreak: 0,
+        pendingPayments: []
     };
     
-    // Add to users array
     users.push(currentUser);
     
-    // Process referral if provided
     if (referralCode) {
         processReferral(referralCode, currentUser);
     }
     
-    // Save data
     saveUserData();
-    
-    // Show main app
     showMainApp();
-    
     showNotification(`Welcome ${name.split(' ')[0]}! Start by purchasing your first machine.`);
 }
 
@@ -275,232 +223,164 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function showChangePassword() {
-    document.getElementById('password-modal').style.display = 'flex';
-    
-    // Clear form
-    document.getElementById('current-password').value = '';
-    document.getElementById('new-password').value = '';
-    document.getElementById('confirm-new-password').value = '';
-}
-
-function closePasswordModal() {
-    document.getElementById('password-modal').style.display = 'none';
-}
-
-function changePassword() {
-    const current = document.getElementById('current-password').value;
-    const newPass = document.getElementById('new-password').value;
-    const confirm = document.getElementById('confirm-new-password').value;
-    
-    // Validate current password
-    if (btoa(current) !== currentUser.password) {
-        showNotification('Current password is incorrect');
-        return;
-    }
-    
-    // Validate new password
-    if (!newPass || newPass.length < 6) {
-        showNotification('New password must be at least 6 characters');
-        return;
-    }
-    
-    // Validate confirmation
-    if (newPass !== confirm) {
-        showNotification('New passwords do not match');
-        return;
-    }
-    
-    // Update password
-    currentUser.password = btoa(newPass);
-    saveUserData();
-    
-    closePasswordModal();
-    showNotification('Password updated successfully!');
-}
-
 // ============================================
-// REFERRAL SYSTEM
-// ============================================
-function processReferral(referralCode, newUser) {
-    const referrer = users.find(u => u.referralCode === referralCode);
-    if (referrer) {
-        // Add referral to referrer's list
-        referrer.referrals.push({
-            userId: newUser.id,
-            name: newUser.name,
-            date: new Date().toISOString(),
-            commission: 0
-        });
-        
-        // Give instant bonus
-        referrer.walletBalance += 500;
-        referrer.totalRevenue += 500;
-        
-        // Record transaction
-        addTransaction(referrer.id, 'Referral Bonus', 500, 'credit');
-        
-        showNotification(`Referral successful! You earned 500 KES bonus!`);
-        saveUserData();
-    }
-}
-
-// ============================================
-// MPESA PAYMENT SYSTEM
+// PAYMENT SYSTEM (Updated with manual payment)
 // ============================================
 let currentPurchase = null;
 
-function showMpesaModal(pkg) {
+function showPaymentModal(pkg) {
     currentPurchase = pkg;
     
-    document.getElementById('payment-details').innerHTML = `
-        <div class="package-preview">
+    document.getElementById('payment-details-box').innerHTML = `
+        <div class="package-summary">
             <h4>${pkg.brand} ${pkg.level}</h4>
-            <p class="price">KES ${pkg.deposit.toLocaleString()}</p>
+            <p class="amount">KES ${pkg.deposit.toLocaleString()}</p>
             <p>Daily Return: KES ${pkg.daily}</p>
             <p>Cycle: ${pkg.days} days</p>
-            <p>Total Profit: KES ${pkg.total}</p>
         </div>
     `;
     
-    document.getElementById('mpesa-modal').style.display = 'flex';
-    
-    // Pre-fill with user's phone if available
-    if (currentUser && currentUser.phone) {
-        document.getElementById('mpesa-phone').value = currentUser.phone;
-    }
+    document.getElementById('payment-info-modal').style.display = 'flex';
 }
 
-function closeMpesaModal() {
-    document.getElementById('mpesa-modal').style.display = 'none';
+function closePaymentModal() {
+    document.getElementById('payment-info-modal').style.display = 'none';
     currentPurchase = null;
 }
 
-function processMpesaPayment() {
-    const phone = document.getElementById('mpesa-phone').value.trim();
-    const pin = document.getElementById('mpesa-pin').value;
-    
-    // Validate phone
-    if (!phone) {
-        showNotification('Please enter your M-Pesa phone number');
-        document.getElementById('mpesa-phone').focus();
-        return;
-    }
-    
-    const cleanPhone = phone.replace(/\D/g, '');
-    if (cleanPhone.length < 10 || cleanPhone.length > 12) {
-        showNotification('Please enter a valid M-Pesa number (e.g., 254712345678)');
-        document.getElementById('mpesa-phone').focus();
-        return;
-    }
-    
-    // Validate PIN
-    if (!pin) {
-        showNotification('Please enter your M-Pesa PIN');
-        document.getElementById('mpesa-pin').focus();
-        return;
-    }
-    
-    if (pin.length < 4) {
-        showNotification('Please enter a valid M-Pesa PIN');
-        document.getElementById('mpesa-pin').focus();
-        return;
-    }
-    
+function copyAccountNumber() {
+    navigator.clipboard.writeText(COMPANY_PHONE).then(() => {
+        showNotification('✅ Account number copied!');
+    });
+}
+
+function confirmPayment() {
     if (!currentPurchase) {
         showNotification('No package selected');
         return;
     }
     
-    showNotification('STK push sent to your phone. Please enter PIN to complete payment.');
+    // Generate payment reference
+    const reference = 'RC-' + new Date().getFullYear() + '-' + 
+                     Math.floor(Math.random() * 10000).toString().padStart(4, '0');
     
-    // Simulate payment processing
-    setTimeout(() => {
-        completePurchase();
-    }, 2000);
-}
-
-function completePurchase() {
-    // Create investment record
-    const investment = {
+    // Create pending payment record
+    const payment = {
         id: Date.now(),
         userId: currentUser.id,
-        packageId: currentPurchase.id,
-        brand: currentPurchase.brand,
-        level: currentPurchase.level,
+        userName: currentUser.name,
+        package: currentPurchase,
         amount: currentPurchase.deposit,
-        dailyReturn: currentPurchase.daily,
-        totalReturn: currentPurchase.total,
-        days: currentPurchase.days,
-        daysCompleted: 0,
-        startDate: new Date().toISOString(),
-        lastClaimDate: null,
-        status: 'active'
+        reference: reference,
+        date: new Date().toISOString(),
+        status: 'pending'
     };
     
-    currentUser.investments.push(investment);
+    pendingPayments.push(payment);
+    
+    // Add to user's pending payments
+    if (!currentUser.pendingPayments) {
+        currentUser.pendingPayments = [];
+    }
+    currentUser.pendingPayments.push(payment);
     
     // Record transaction
-    addTransaction(currentUser.id, `Purchased ${currentPurchase.brand} Machine`, currentPurchase.deposit, 'debit');
+    addTransaction(currentUser.id, `Payment for ${currentPurchase.brand} (Pending)`, currentPurchase.deposit, 'debit', 'pending');
     
-    // Pay commission to referrer
-    if (currentUser.referredBy) {
-        const referrer = users.find(u => u.referralCode === currentUser.referredBy);
-        if (referrer) {
-            const commission = currentPurchase.deposit * 0.1; // 10% commission
-            referrer.walletBalance += commission;
-            referrer.commissionEarned += commission;
-            addTransaction(referrer.id, `Commission from ${currentUser.name}`, commission, 'credit');
+    // Save data
+    saveUserData();
+    
+    // Close payment modal and show confirmation
+    closePaymentModal();
+    document.getElementById('payment-ref').textContent = reference;
+    document.getElementById('payment-confirmation-modal').style.display = 'flex';
+    
+    showNotification(`Payment reference: ${reference}. Your machine will be activated within 24 hours.`);
+}
+
+function closeConfirmationModal() {
+    document.getElementById('payment-confirmation-modal').style.display = 'none';
+}
+
+// Admin function to approve payment (call this when payment is verified)
+function approvePayment(paymentId) {
+    const payment = pendingPayments.find(p => p.id === paymentId);
+    if (payment) {
+        payment.status = 'approved';
+        
+        // Create investment
+        const investment = {
+            id: Date.now(),
+            userId: payment.userId,
+            packageId: payment.package.id,
+            brand: payment.package.brand,
+            level: payment.package.level,
+            amount: payment.amount,
+            dailyReturn: payment.package.daily,
+            totalReturn: payment.package.total,
+            days: payment.package.days,
+            daysCompleted: 0,
+            startDate: new Date().toISOString(),
+            lastClaimDate: null,
+            status: 'active'
+        };
+        
+        const user = users.find(u => u.id === payment.userId);
+        if (user) {
+            user.investments.push(investment);
             
-            // Update referral record
-            const referral = referrer.referrals.find(r => r.userId === currentUser.id);
-            if (referral) {
-                referral.commission += commission;
+            // Pay commission to referrer
+            if (user.referredBy) {
+                const referrer = users.find(u => u.referralCode === user.referredBy);
+                if (referrer) {
+                    const commission = payment.amount * 0.1; // 10% commission
+                    referrer.walletBalance += commission;
+                    referrer.commissionEarned += commission;
+                    addTransaction(referrer.id, `Commission from ${user.name}`, commission, 'credit');
+                    
+                    const referral = referrer.referrals.find(r => r.userId === user.id);
+                    if (referral) {
+                        referral.commission += commission;
+                    }
+                }
             }
             
-            saveUserData();
+            // Update transaction
+            const transaction = transactions.find(t => t.id === payment.id);
+            if (transaction) {
+                transaction.status = 'completed';
+            }
         }
+        
+        saveUserData();
     }
-    
-    // Close modal and update UI
-    closeMpesaModal();
-    saveUserData();
-    updateAllDisplays();
-    
-    showNotification(`Success! You purchased ${currentPurchase.brand} machine!`);
-    switchToHome();
 }
 
 // ============================================
-// DAILY REWARDS
+// DAILY REWARDS (Updated to 20)
 // ============================================
 function claimDailyReward() {
     const today = new Date().toDateString();
     
-    // Check if already claimed today
     if (lastClaimDate === today) {
         showNotification('You already claimed your daily reward today!');
         return;
     }
     
-    // Calculate reward
-    let reward = 50; // Base reward
+    let reward = 20; // Changed from 50 to 20
     
-    // Bonus for active investments
     const activeInvestments = currentUser.investments.filter(i => i.status === 'active');
-    reward += activeInvestments.length * 10;
+    reward += activeInvestments.length * 5; // Bonus per active machine
     
-    // Level bonus
-    reward += currentUser.level * 20;
+    reward += currentUser.level * 10; // Level bonus
     
-    // Streak bonus
     if (lastClaimDate) {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         
         if (new Date(lastClaimDate).toDateString() === yesterday.toDateString()) {
             currentUser.dailyStreak = (currentUser.dailyStreak || 0) + 1;
-            reward += currentUser.dailyStreak * 5;
+            reward += currentUser.dailyStreak * 2; // Streak bonus
         } else {
             currentUser.dailyStreak = 1;
         }
@@ -508,15 +388,12 @@ function claimDailyReward() {
         currentUser.dailyStreak = 1;
     }
     
-    // Credit reward
     lastClaimDate = today;
     currentUser.walletBalance += reward;
     currentUser.totalRevenue += reward;
     
-    // Record transaction
     addTransaction(currentUser.id, 'Daily Reward', reward, 'credit');
     
-    // Update UI
     updateRewardBanner(true);
     saveUserData();
     updateWalletDisplay();
@@ -544,13 +421,11 @@ function processDailyReturns() {
                 investment.lastClaimDate = new Date().toISOString();
                 returnsProcessed = true;
                 
-                // Record daily return transaction
                 addTransaction(currentUser.id, `Daily Return - ${investment.brand}`, dailyReturn, 'credit');
                 
-                // Check if investment cycle complete
                 if (investment.daysCompleted >= investment.days) {
                     investment.status = 'completed';
-                    const completionBonus = investment.amount * 0.2; // 20% bonus
+                    const completionBonus = investment.amount * 0.2;
                     currentUser.walletBalance += completionBonus;
                     addTransaction(currentUser.id, `${investment.brand} Cycle Complete Bonus`, completionBonus, 'credit');
                     showNotification(`🎉 ${investment.brand} machine cycle complete! Bonus: ${completionBonus} KES`);
@@ -582,7 +457,7 @@ function checkLevelUp() {
     
     if (newLevel > currentUser.level) {
         currentUser.level = newLevel;
-        const levelBonus = newLevel * 1000;
+        const levelBonus = newLevel * 500;
         currentUser.walletBalance += levelBonus;
         addTransaction(currentUser.id, `Level ${newLevel} Up Bonus`, levelBonus, 'credit');
         showNotification(`🎉 Congratulations! You reached Level ${newLevel}! Bonus: ${levelBonus} KES`);
@@ -590,13 +465,12 @@ function checkLevelUp() {
 }
 
 // ============================================
-// WITHDRAWAL SYSTEM
+// WITHDRAWAL SYSTEM (Updated min 300)
 // ============================================
 function showWithdrawModal() {
     document.getElementById('withdraw-balance').textContent = `KES ${currentUser.walletBalance.toLocaleString()}`;
     document.getElementById('withdraw-modal').style.display = 'flex';
     
-    // Pre-fill with user's phone
     if (currentUser && currentUser.phone) {
         document.getElementById('withdraw-phone').value = currentUser.phone;
     }
@@ -610,15 +484,14 @@ function processWithdrawal() {
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
     const phone = document.getElementById('withdraw-phone').value.trim();
     
-    // Validate amount
     if (!amount || isNaN(amount)) {
         showNotification('Please enter an amount to withdraw');
         document.getElementById('withdraw-amount').focus();
         return;
     }
     
-    if (amount < 100) {
-        showNotification('Minimum withdrawal is KES 100');
+    if (amount < 300) { // Changed from 100 to 300
+        showNotification('Minimum withdrawal is KES 300');
         document.getElementById('withdraw-amount').focus();
         return;
     }
@@ -629,7 +502,6 @@ function processWithdrawal() {
         return;
     }
     
-    // Validate phone
     if (!phone) {
         showNotification('Please enter your M-Pesa phone number');
         document.getElementById('withdraw-phone').focus();
@@ -643,11 +515,10 @@ function processWithdrawal() {
         return;
     }
     
-    // Process withdrawal
     currentUser.walletBalance -= amount;
     addTransaction(currentUser.id, 'Withdrawal to M-Pesa', amount, 'debit', 'pending');
     
-    showNotification(`KES ${amount.toLocaleString()} sent to ${cleanPhone}. Check your M-Pesa.`);
+    showNotification(`Withdrawal request for KES ${amount.toLocaleString()} submitted. You will receive payment within 24 hours.`);
     
     closeWithdrawModal();
     saveUserData();
@@ -655,10 +526,25 @@ function processWithdrawal() {
 }
 
 // ============================================
-// REFERRAL MODAL FUNCTIONS
+// REFERRAL SYSTEM (10% commission)
 // ============================================
+function processReferral(referralCode, newUser) {
+    const referrer = users.find(u => u.referralCode === referralCode);
+    if (referrer) {
+        referrer.referrals.push({
+            userId: newUser.id,
+            name: newUser.name,
+            date: new Date().toISOString(),
+            commission: 0
+        });
+        
+        // Note: No instant bonus, only 10% commission on purchases
+        saveUserData();
+    }
+}
+
 function showReferralModal() {
-    document.getElementById('referral-link-text').textContent = `https://apex.tech/ref/${currentUser.referralCode}`;
+    document.getElementById('referral-link-text').textContent = `https://royalcrest.invest/ref/${currentUser.referralCode}`;
     document.getElementById('modal-referral-count').textContent = currentUser.referrals.length;
     
     const referralEarnings = currentUser.referrals.reduce((sum, r) => sum + r.commission, 0);
@@ -689,15 +575,100 @@ function copyReferralCode() {
 function shareReferral() {
     if (navigator.share) {
         navigator.share({
-            title: 'Join Apex Tech',
-            text: 'Invest in advertising machines and earn daily returns!',
-            url: `https://apex.tech/ref/${currentUser.referralCode}`
+            title: 'Join Royal Crest Investment',
+            text: 'Invest in premium machines and earn daily returns!',
+            url: `https://royalcrest.invest/ref/${currentUser.referralCode}`
         }).catch(() => {
             copyReferralLink();
         });
     } else {
         copyReferralLink();
     }
+}
+
+// ============================================
+// TASKS SYSTEM (Machine-based)
+// ============================================
+function renderTasks() {
+    const container = document.getElementById('tasks-container');
+    if (!container) return;
+    
+    const activeInvestments = currentUser.investments.filter(i => i.status === 'active');
+    
+    if (activeInvestments.length === 0) {
+        container.innerHTML = `
+            <div class="no-tasks">
+                <i class="fas fa-tasks"></i>
+                <p>Buy a machine to unlock tasks</p>
+                <button class="btn-buy-small" onclick="switchToPackages()">Buy Machine</button>
+            </div>
+        `;
+        return;
+    }
+    
+    let tasksHtml = '';
+    
+    // Generate tasks based on machines owned
+    activeInvestments.forEach((inv, index) => {
+        const taskEarning = Math.round(inv.dailyReturn * 0.5); // Tasks earn 50% of daily return
+        
+        tasksHtml += `
+            <div class="task-card machine-task">
+                <div class="task-machine-info">
+                    <span class="machine-badge" style="background: ${getBrandColor(inv.brand)}">${inv.brand}</span>
+                    <div class="task-info">
+                        <h4>Maintain ${inv.brand} Machine</h4>
+                        <p>Complete daily maintenance task</p>
+                    </div>
+                </div>
+                <div class="task-reward">
+                    <span class="reward-amount">+${taskEarning} KES</span>
+                    <button class="btn-task" onclick="completeMachineTask('${inv.id}')">Start</button>
+                </div>
+            </div>
+        `;
+        
+        // Add extra task for higher level machines
+        if (inv.level.includes('Level 3') || inv.level.includes('Level 4')) {
+            tasksHtml += `
+                <div class="task-card machine-task">
+                    <div class="task-machine-info">
+                        <span class="machine-badge" style="background: ${getBrandColor(inv.brand)}">${inv.brand}</span>
+                        <div class="task-info">
+                            <h4>Optimize ${inv.brand} Performance</h4>
+                            <p>Boost machine efficiency</p>
+                        </div>
+                    </div>
+                    <div class="task-reward">
+                        <span class="reward-amount">+${Math.round(taskEarning * 1.5)} KES</span>
+                        <button class="btn-task" onclick="completeMachineTask('${inv.id}', 'bonus')">Start</button>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    container.innerHTML = tasksHtml;
+}
+
+function completeMachineTask(investmentId, type = 'regular') {
+    const investment = currentUser.investments.find(i => i.id == investmentId);
+    if (!investment) return;
+    
+    const earning = type === 'bonus' ? 
+        Math.round(investment.dailyReturn * 0.75) : 
+        Math.round(investment.dailyReturn * 0.5);
+    
+    currentUser.walletBalance += earning;
+    currentUser.totalRevenue += earning;
+    
+    addTransaction(currentUser.id, `Task completed for ${investment.brand}`, earning, 'credit');
+    
+    saveUserData();
+    updateWalletDisplay();
+    renderTasks();
+    
+    showNotification(`✅ Task completed! You earned ${earning} KES`);
 }
 
 // ============================================
@@ -716,7 +687,6 @@ function addTransaction(userId, description, amount, type, status = 'completed')
     
     transactions.push(transaction);
     
-    // Keep only last 100 transactions
     if (transactions.length > 100) {
         transactions.shift();
     }
@@ -746,7 +716,7 @@ function showTransactionHistory() {
                 <div class="transaction-item">
                     <div class="transaction-info">
                         <strong>${t.description}</strong>
-                        <small>${date}</small>
+                        <small>${date} ${t.status !== 'completed' ? `(${t.status})` : ''}</small>
                     </div>
                     <div class="transaction-amount" style="color: ${color}">
                         ${sign}KES ${t.amount.toLocaleString()}
@@ -776,6 +746,7 @@ function updateAllDisplays() {
     renderTeam();
     renderRewards();
     renderLevels();
+    renderTasks();
     updateProfile();
 }
 
@@ -804,7 +775,7 @@ function updateRewardBanner(claimed = false) {
     } else {
         banner.classList.remove('claimed');
         document.getElementById('reward-title').textContent = 'Daily Reward Ready!';
-        document.getElementById('reward-desc').textContent = 'Claim your bonus';
+        document.getElementById('reward-desc').textContent = 'Claim your 20 KES bonus';
         document.getElementById('claim-badge').textContent = 'Claim Now';
     }
 }
@@ -851,8 +822,12 @@ function renderPackages() {
                 <span>ROI: ${roi}%</span>
             </div>
             
-            <button class="btn-buy" onclick='showMpesaModal(${JSON.stringify(pkg)})'>
-                <i class="fas fa-mobile-alt"></i> Buy with M-Pesa
+            <div class="payment-info">
+                <p><i class="fas fa-phone"></i> Send payment to: <strong>${COMPANY_PHONE}</strong></p>
+            </div>
+            
+            <button class="btn-buy" onclick='showPaymentModal(${JSON.stringify(pkg)})'>
+                <i class="fas fa-credit-card"></i> Buy Machine
             </button>
         `;
         
@@ -911,16 +886,16 @@ function renderInvestments() {
 
 function getBrandColor(brand) {
     const colors = {
-        'DELL': '#0076a8',
-        'HP': '#0096d6',
-        'Lenovo': '#e2231a',
-        'Apple': '#555555',
-        'ASUS': '#0066b3',
-        'Acer': '#83b81a',
-        'Microsoft': '#f25022',
-        'Samsung': '#1428a0'
+        'Royal Starter': '#8b5cf6',
+        'Royal Plus': '#8b5cf6',
+        'Royal Pro': '#8b5cf6',
+        'Royal Elite': '#8b5cf6',
+        'Royal Executive': '#8b5cf6',
+        'Royal VIP': '#8b5cf6',
+        'Royal Platinum': '#8b5cf6',
+        'Royal Diamond': '#8b5cf6'
     };
-    return colors[brand] || '#2563eb';
+    return colors[brand] || '#8b5cf6';
 }
 
 function renderTeam() {
@@ -957,7 +932,7 @@ function renderTeam() {
                 const member = document.createElement('div');
                 member.className = 'team-member';
                 member.innerHTML = `
-                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(ref.name)}&background=2563eb&color=fff" alt="Team member">
+                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(ref.name)}&background=8b5cf6&color=fff" alt="Team member">
                     <div class="member-info">
                         <h4>${ref.name}</h4>
                         <p>Joined: ${new Date(ref.date).toLocaleDateString()}</p>
@@ -982,7 +957,7 @@ function renderRewards() {
         <div class="reward-card ${!canClaimDaily ? 'claimed' : ''}">
             <i class="fas fa-gift"></i>
             <h4>Daily Check-in</h4>
-            <p>Claim ${50 + ((currentUser.dailyStreak || 0) * 5)} KES daily</p>
+            <p>Claim 20 KES daily + bonuses</p>
             <p class="streak">🔥 ${currentUser.dailyStreak || 0} day streak</p>
             <button class="btn-reward" onclick="claimDailyReward()" ${!canClaimDaily ? 'disabled' : ''}>
                 ${canClaimDaily ? 'Claim Now' : 'Already Claimed'}
@@ -991,9 +966,8 @@ function renderRewards() {
         
         <div class="reward-card">
             <i class="fas fa-trophy"></i>
-            <h4>Referral Bonus</h4>
-            <p>Earn 500 KES per referral</p>
-            <p>Plus 10% commission</p>
+            <h4>Referral Commission</h4>
+            <p>Earn 10% on every machine purchase</p>
             <button class="btn-reward" onclick="showReferralModal()">Refer Now</button>
         </div>
         
@@ -1001,7 +975,7 @@ function renderRewards() {
             <i class="fas fa-star"></i>
             <h4>Level ${currentUser.level + 1} Bonus</h4>
             <p>Reach Level ${currentUser.level + 1}</p>
-            <p>Reward: ${(currentUser.level + 1) * 1000} KES</p>
+            <p>Reward: ${(currentUser.level + 1) * 500} KES</p>
             <button class="btn-reward" onclick="switchToView('levels')">View Progress</button>
         </div>
     `;
@@ -1055,7 +1029,6 @@ function updateProfile() {
     document.getElementById('profile-referral').textContent = currentUser.referralCode;
     document.getElementById('profile-username').textContent = `@${currentUser.name.toLowerCase().replace(/\s+/g, '_')}`;
     
-    // Format join date
     const joinDate = new Date(currentUser.joinDate);
     document.getElementById('profile-joined').textContent = joinDate.toLocaleDateString('en-GB', {
         day: 'numeric',
@@ -1063,10 +1036,8 @@ function updateProfile() {
         year: 'numeric'
     });
     
-    // Update avatar
-    document.getElementById('profile-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=2563eb&color=fff&size=128`;
+    document.getElementById('profile-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=8b5cf6&color=fff&size=128`;
     
-    // Update badges
     const badges = document.getElementById('profile-badges');
     badges.innerHTML = `
         <span class="badge verified"><i class="fas fa-check-circle"></i> Verified</span>
@@ -1074,7 +1045,6 @@ function updateProfile() {
         ${currentUser.referrals.length > 0 ? '<span class="badge"><i class="fas fa-users"></i> Referrer</span>' : ''}
     `;
     
-    // Update stats
     const totalInvested = currentUser.investments.reduce((sum, inv) => sum + inv.amount, 0);
     const daysActive = Math.floor((new Date() - new Date(currentUser.joinDate)) / (1000 * 60 * 60 * 24));
     
@@ -1102,41 +1072,35 @@ function updateProfile() {
 // NAVIGATION
 // ============================================
 function switchTab(viewName, navElement) {
-    // Hide all views
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     
-    // Show selected view
     const viewElement = document.getElementById(`view-${viewName}`);
     if (viewElement) {
         viewElement.classList.add('active');
     }
 
-    // Update nav styling
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     if (navElement) {
         navElement.classList.add('active');
     }
     
-    // Refresh data based on view
     if (viewName === 'home') updateAllDisplays();
     if (viewName === 'team') renderTeam();
     if (viewName === 'rewards') renderRewards();
     if (viewName === 'packages') renderPackages();
     if (viewName === 'levels') renderLevels();
     if (viewName === 'profile') updateProfile();
+    if (viewName === 'tasks') renderTasks();
 }
 
 function switchToView(viewName) {
-    // Hide all views
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     
-    // Show selected view
     const viewElement = document.getElementById(`view-${viewName}`);
     if (viewElement) {
         viewElement.classList.add('active');
     }
 
-    // Update bottom nav
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     
     const navMap = {
@@ -1150,13 +1114,13 @@ function switchToView(viewName) {
         document.querySelectorAll('.nav-item')[navMap[viewName]].classList.add('active');
     }
     
-    // Refresh data
     if (viewName === 'home') updateAllDisplays();
     if (viewName === 'team') renderTeam();
     if (viewName === 'rewards') renderRewards();
     if (viewName === 'packages') renderPackages();
     if (viewName === 'levels') renderLevels();
     if (viewName === 'profile') updateProfile();
+    if (viewName === 'tasks') renderTasks();
 }
 
 function switchToHome() {
@@ -1183,14 +1147,57 @@ function showNotification(message) {
 }
 
 // ============================================
+// PASSWORD CHANGE
+// ============================================
+function showChangePassword() {
+    document.getElementById('password-modal').style.display = 'flex';
+    
+    document.getElementById('current-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-new-password').value = '';
+}
+
+function closePasswordModal() {
+    document.getElementById('password-modal').style.display = 'none';
+}
+
+function changePassword() {
+    const current = document.getElementById('current-password').value;
+    const newPass = document.getElementById('new-password').value;
+    const confirm = document.getElementById('confirm-new-password').value;
+    
+    if (btoa(current) !== currentUser.password) {
+        showNotification('Current password is incorrect');
+        return;
+    }
+    
+    if (!newPass || newPass.length < 6) {
+        showNotification('New password must be at least 6 characters');
+        return;
+    }
+    
+    if (newPass !== confirm) {
+        showNotification('New passwords do not match');
+        return;
+    }
+    
+    currentUser.password = btoa(newPass);
+    saveUserData();
+    
+    closePasswordModal();
+    showNotification('Password updated successfully!');
+}
+
+// ============================================
 // DATA PERSISTENCE
 // ============================================
 function saveUserData() {
     try {
-        localStorage.setItem('apex_currentUser', JSON.stringify(currentUser));
-        localStorage.setItem('apex_users', JSON.stringify(users));
-        localStorage.setItem('apex_transactions', JSON.stringify(transactions));
-        localStorage.setItem('apex_lastClaim', lastClaimDate || '');
+        localStorage.setItem('royal_currentUser', JSON.stringify(currentUser));
+        localStorage.setItem('royal_users', JSON.stringify(users));
+        localStorage.setItem('royal_transactions', JSON.stringify(transactions));
+        localStorage.setItem('royal_pendingPayments', JSON.stringify(pendingPayments));
+        localStorage.setItem('royal_lastClaim', lastClaimDate || '');
     } catch (e) {
         console.error('Error saving data:', e);
     }
@@ -1198,14 +1205,16 @@ function saveUserData() {
 
 function loadUserData() {
     try {
-        const savedUser = localStorage.getItem('apex_currentUser');
-        const savedUsers = localStorage.getItem('apex_users');
-        const savedTransactions = localStorage.getItem('apex_transactions');
-        const savedLastClaim = localStorage.getItem('apex_lastClaim');
+        const savedUser = localStorage.getItem('royal_currentUser');
+        const savedUsers = localStorage.getItem('royal_users');
+        const savedTransactions = localStorage.getItem('royal_transactions');
+        const savedPayments = localStorage.getItem('royal_pendingPayments');
+        const savedLastClaim = localStorage.getItem('royal_lastClaim');
         
         if (savedUser) currentUser = JSON.parse(savedUser);
         if (savedUsers) users = JSON.parse(savedUsers);
         if (savedTransactions) transactions = JSON.parse(savedTransactions);
+        if (savedPayments) pendingPayments = JSON.parse(savedPayments);
         if (savedLastClaim) lastClaimDate = savedLastClaim;
     } catch (e) {
         console.error('Error loading data:', e);
@@ -1218,7 +1227,7 @@ function loadUserData() {
 function logout() {
     if (confirm('Are you sure you want to logout?')) {
         currentUser = null;
-        localStorage.removeItem('apex_currentUser');
+        localStorage.removeItem('royal_currentUser');
         
         showWelcome();
         document.getElementById('bottom-nav').style.display = 'none';
@@ -1226,12 +1235,3 @@ function logout() {
         showNotification('Logged out successfully');
     }
 }
-
-// ============================================
-// ERROR HANDLING
-// ============================================
-window.onerror = function(msg, url, lineNo, columnNo, error) {
-    console.error('Error: ' + msg);
-    showNotification('An error occurred. Please try again.');
-    return false;
-};
